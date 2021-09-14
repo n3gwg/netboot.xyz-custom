@@ -43,7 +43,9 @@ reboot
 echo Booting ${cname}Hardware Detection Tool${reset}
 set sanboot-url https://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.img
 #sanboot --no-describe --drive 0x00 ${sanboot-url} || goto failed
-sanboot --no-describe --drive 0x00 ${sanboot-url}
+sanhook --drive 0x00 ${sanboot-url}
+#sanboot --no-describe --drive 0x00 ${sanboot-url}
+sanboot ${sanboot-url}
 sleep 10
 goto start
 
