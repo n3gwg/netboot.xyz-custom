@@ -3,10 +3,55 @@
 ### netboot.xyz-custom menu
 ###
 
-:start
-echo Hello world!!!
-sleep 10
-goto custom_exit
+#:start
+#echo Hello world!!!
+#sleep 10
+#goto custom_exit
 
-:custom_exit
-exit 0
+#:custom_exit
+#exit 0
+
+######## MAIN MENU ###################
+:start
+menu Welcome to iPXE's Boot Menu
+item
+item smartos    Boot SmartOS
+item
+item shell      Enter iPXE shell
+item reboot     Reboot
+item poweroff	Poweroff
+item
+item exit       Exit (boot local disk)
+choose --default smartos --timeout 60000 target && goto ${target}
+
+## Utility menu items:
+:shell
+echo Type exit to get the back to the menu
+shell
+set menu-timeout 0
+goto start
+
+:failed
+echo Booting failed, dropping to shell
+goto shell
+
+:reboot
+reboot
+
+:poweroff
+poweroff
+
+:exit
+exit
+
+########## MENU ITEMS #######################
+:sdc
+kernel /sdc/20121001T165806Z/platform/i86pc/kernel/amd64/unix -B hostname=r720test,standalone=true
+initrd /sdc/20121001T165806Z/platform/i86pc/amd64/boot_archive
+boot
+
+:smartos
+kernel /smartos/20121004T212912Z/platform/i86pc/kernel/amd64/unix
+initrd /smartos/20121004T212912Z/platform/i86pc/amd64/boot_archive
+boot
+
