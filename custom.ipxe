@@ -17,6 +17,7 @@ menu Welcome to iPXE's Boot Menu
 item
 item smartos    Boot SmartOS
 item
+item hdt	Hardware detection tool
 item shell      Enter iPXE shell
 item reboot     Reboot
 item poweroff	Poweroff
@@ -38,8 +39,13 @@ goto shell
 :reboot
 reboot
 
-:poweroff
-poweroff
+:hdt
+echo Booting ${cname}Hardware Detection Tool${reset}
+set sanboot-url https://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.img
+#sanboot --no-describe --drive 0x00 ${sanboot-url} || goto failed
+sanboot --no-describe --drive 0x00 ${sanboot-url}
+sleep 10
+goto start
 
 :exit
 exit
