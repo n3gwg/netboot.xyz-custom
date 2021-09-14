@@ -41,12 +41,14 @@ reboot
 
 :hdt
 echo Booting ${cname}Hardware Detection Tool${reset}
-set sanboot-url https://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.img
+#set sanboot-url https://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.img
 #sanboot --no-describe --drive 0x00 ${sanboot-url} || goto failed
-sanhook --drive 0x00 ${sanboot-url}
+#sanhook --drive 0x00 ${sanboot-url}
 #sanboot --no-describe --drive 0x00 ${sanboot-url}
-sanboot ${sanboot-url}
-sleep 10
+#sanboot ${sanboot-url}
+kernel memdisk
+append iso
+initrd hdt-0.5.2.iso || sleep 45
 goto start
 
 :exit
